@@ -1,5 +1,9 @@
 # A simple wrapper for the [OpenAI REST API](https://platform.openai.com/docs/api-reference/chat/create) written in pure Golang.
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/Gaurav-Gosain/openai-go.svg)](https://pkg.go.dev/github.com/Gaurav-Gosain/openai-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Gaurav-Gosain/openai-go)](https://goreportcard.com/report/github.com/Gaurav-Gosain/openai-go)
+
+
 > Note: Currently only supports the Chat API (without streaming).
 
 ## Installation
@@ -56,3 +60,20 @@ func main() {
 	fmt.Println("That costed you", response.Usage.TotalTokens, "tokens")
 }
 ```
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Gaurav-Gosain/openai-go&type=Date)](https://star-history.com/#Gaurav-Gosain/openai-go&Date)
+
+<div style="display:flex;flex-wrap:wrap;">
+  <img alt="GitHub Language Count" src="https://img.shields.io/github/languages/count/Gaurav-Gosain/openai-go" style="padding:5px;margin:5px;" />
+  <img alt="GitHub Top Language" src="https://img.shields.io/github/languages/top/Gaurav-Gosain/openai-go" style="padding:5px;margin:5px;" />
+  <img alt="" src="https://img.shields.io/github/repo-size/Gaurav-Gosain/openai-go" style="padding:5px;margin:5px;" />
+  <img alt="GitHub Issues" src="https://img.shields.io/github/issues/Gaurav-Gosain/openai-go" style="padding:5px;margin:5px;" />
+  <img alt="GitHub Closed Issues" src="https://img.shields.io/github/issues-closed/Gaurav-Gosain/openai-go" style="padding:5px;margin:5px;" />
+  <img alt="GitHub Pull Requests" src="https://img.shields.io/github/issues-pr/Gaurav-Gosain/openai-go" style="padding:5px;margin:5px;" />
+  <img alt="GitHub Closed Pull Requests" src="https://img.shields.io/github/issues-pr-closed/Gaurav-Gosain/openai-go" style="padding:5px;margin:5px;" />
+  <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/Gaurav-Gosain/openai-go" style="padding:5px;margin:5px;" />
+  <img alt="GitHub Last Commit" src="https://img.shields.io/github/last-commit/Gaurav-Gosain/openai-go" style="padding:5px;margin:5px;" />
+  <img alt="GitHub Commit Activity (Week)" src="https://img.shields.io/github/commit-activity/w/Gaurav-Gosain/openai-go" style="padding:5px;margin:5px;" />
+<div>
