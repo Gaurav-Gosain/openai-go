@@ -129,6 +129,10 @@ func main() {
 }
 ```
 
+Work In progress...
+
+This module is not complete and does not support all features offered by the OpenAI API currently. Any contibutions are welcome!
+
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=Gaurav-Gosain/openai-go&type=Date)](https://star-history.com/#Gaurav-Gosain/openai-go&Date)
