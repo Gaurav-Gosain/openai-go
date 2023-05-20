@@ -6,6 +6,16 @@
 
 > Note: Currently only supports the Chat API (without streaming).
 
+### Supported Models
+
+|   Model Name    |
+| :-------------: |
+|      gpt-4      |
+|     gpt-4-*     |
+|  gpt-3.5-turbo  |
+| gpt-3.5-turbo-* |
+
+
 ## Installation
 
 ```bash
@@ -25,7 +35,7 @@ import (
 
 func main() {
 	//? Get your API key from https://platform.openai.com/account/api-keys
-	openAI := OpenAI.Create("YOUR_API_KEY_HERE") // Ideally, you should store your API key in an environment variable
+	ai := OpenAI.Create("YOUR_API_KEY_HERE") // Ideally, you should store your API key in an environment variable
 
 	//? Refer to https://platform.openai.com/docs/api-reference/chat/create to learn more about the parameters.
 	chatRequest := OpenAI.OpenAIChatRequest{
@@ -39,7 +49,7 @@ func main() {
 		},
 	}
 
-	response, err := openAI.Chat(chatRequest)
+	response, err := ai.Chat(chatRequest)
 
 	if err != nil {
 		fmt.Println("ERROR:", err)
@@ -58,6 +68,64 @@ func main() {
 	}
 
 	fmt.Println("That costed you", response.Usage.TotalTokens, "tokens")
+}
+```
+
+## Calculate Request Tokens without calling the OpenAI API
+
+Uses the [tiktoken-go](https://github.com/pkoukk/tiktoken-go) and the c100k_base encoding model to estimate the number of tokens in a request. 
+
+> Note: When making a chat request to the OpenAI APIs, the System Prompt, the user messages and the assistant responses all count towards the total tokens.
+
+> Credits: [tiktoken-go](https://github.com/pkoukk/tiktoken-go)
+
+```go
+package main
+
+import (
+	"fmt"
+
+	OpenAI "github.com/Gaurav-Gosain/openai-go"
+)
+
+func main() {
+	//? Get your API key from https://platform.openai.com/account/api-keys
+	ai := OpenAI.Create("YOUR_API_KEY_HERE") // Ideally, you should store your API key in an environment variable
+
+	//? Refer to https://platform.openai.com/docs/api-reference/chat/create to learn more about the parameters.
+	chatRequest := OpenAI.OpenAIChatRequest{
+		Model:     "gpt-3.5-turbo", // name of the model to use
+		MaxTokens: 50,              // max tokens to generate
+		Messages: []OpenAI.Message{ // messages to feed to the model
+			{
+				Role:    OpenAI.ChatMessageRoleSystem,
+				Content: "This is an example of a system prompt.",
+			},
+			{
+				Role:    OpenAI.ChatMessageRoleUser,
+				Content: "Hello World! This is an example of a chat message.",
+			},
+			{
+				Role:    OpenAI.ChatMessageRoleAssistant,
+				Content: "Hello World! This is an example of an assistant response.",
+			},
+		},
+	}
+
+	//? Calculate the number of tokens that will be consumed by the request.
+	tokens, err := ai.CalculateTokens(chatRequest)
+
+	//? OR
+	// tokens, err := OpenAI.CalculateTokens(chatRequest)
+
+	if err != nil {
+		fmt.Println("ERROR:", err)
+		//! Handle Tokenizer error
+		return
+	}
+
+	fmt.Println("This request has", tokens, "tokens")
+    // Output: This request has 33 tokens
 }
 ```
 

@@ -8,7 +8,7 @@ import (
 
 func main() {
 	//? Get your API key from https://platform.openai.com/account/api-keys
-	openAI := OpenAI.Create("YOUR_API_KEY_HERE") // Ideally, you should store your API key in an environment variable
+	ai := OpenAI.Create("YOUR_API_KEY_HERE") // Ideally, you should store your API key in an environment variable
 
 	//? Refer to https://platform.openai.com/docs/api-reference/chat/create to learn more about the parameters.
 	chatRequest := OpenAI.OpenAIChatRequest{
@@ -17,7 +17,7 @@ func main() {
 		Messages: []OpenAI.Message{ // messages to feed to the model
 			{
 				Role:    OpenAI.ChatMessageRoleUser,
-				Content: "Hello",
+				Content: "Hello World! This is an example of a chat message.",
 			},
 		},
 		// Stop:        "\n", // strings and string arrays are both accepted (upto 4 stop tokens)
@@ -33,17 +33,31 @@ func main() {
 		// User: "user_123",
 	}
 
-	response, err := openAI.Chat(chatRequest)
+	//? Calculate the number of tokens that will be consumed by the request.
+	tokens, err := ai.CalculateTokens(chatRequest)
+
+	//? OR
+	// tokens, err := OpenAI.CalculateTokens(chatRequest)
 
 	if err != nil {
 		fmt.Println("ERROR:", err)
-		// Handle REST API error
+		//! Handle Tokenizer error
+		return
+	}
+
+	fmt.Println("This request has", tokens, "tokens")
+
+	response, err := ai.Chat(chatRequest)
+
+	if err != nil {
+		fmt.Println("ERROR:", err)
+		//! Handle REST API error
 		return
 	}
 
 	if response.Error.Type != "" {
 		fmt.Println("ERROR:", response.Error.Type, ":", response.Error.Code)
-		// Handle OpenAPI Response error
+		//! Handle OpenAPI Response error
 		return
 	}
 

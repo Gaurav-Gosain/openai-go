@@ -2,9 +2,12 @@ package OpenAI
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"strings"
+
+	"github.com/pkoukk/tiktoken-go"
 )
 
 // Chat message roles defined by the OpenAI API.
@@ -22,6 +25,24 @@ func Create(apiKey string) *OpenAI {
 	return &OpenAI{
 		ApiKey: apiKey,
 	}
+}
+
+func (openAI *OpenAI) CalculateTokens(request OpenAIChatRequest) (tokens int, err error) {
+	return CalculateTokens(request)
+}
+
+func CalculateTokens(request OpenAIChatRequest) (tokens int, err error) {
+	tke, err := tiktoken.GetEncoding("cl100k_base")
+	if err != nil {
+		err = fmt.Errorf("getEncoding: %v", err)
+		return
+	}
+
+	for _, message := range request.Messages {
+		tokens += len(tke.Encode(message.Content, nil, nil))
+	}
+
+	return
 }
 
 func (openAI *OpenAI) Chat(request OpenAIChatRequest) (response OpenAIChatResponse, err error) {
