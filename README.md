@@ -1,5 +1,7 @@
 # A simple wrapper for the [OpenAI REST API](https://platform.openai.com/docs/api-reference/chat/create) written in pure Golang.
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/cr2007/openai-go)
+
 [![Go Reference](https://pkg.go.dev/badge/github.com/Gaurav-Gosain/openai-go.svg)](https://pkg.go.dev/github.com/Gaurav-Gosain/openai-go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Gaurav-Gosain/openai-go)](https://goreportcard.com/report/github.com/Gaurav-Gosain/openai-go)
 
