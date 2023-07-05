@@ -1,0 +1,29 @@
+{
+	"name": "OpenAI-Go Container",
+	"image": "mcr.microsoft.com/devcontainers/universal:2",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"golang.go",
+				"eamodio.gitlens",
+				"visualstudioexptteam.vscodeintellicode",
+				"catppuccin.catppuccin-vsc",
+				"pkief.material-icon-theme"
+			],
+			"settings": {
+				"workbench.iconTheme": "material-icon-theme", // Material Icon
+				"workbench.colorTheme": "Catppuccin Frappé", // The 🐐 theme
+				"editor.bracketPairColorization.enabled": true, // Colors each bracket pair
+				"editor.experimental.StikyScroll.enabled": true, // To stick all the functions, classes at the top
+				"editor.minimap.scale": 2, // Mini Map
+				"editor.indentSize": "tabSize", // Tab Indent
+				"editor.tabSize": 4, // Tab Size of 4
+				"editor.renderWhitespace": "all", // Shows the whitespaces
+				"files.trimTrailingWhitespace": true // Removes any trailing whitespaces at the end
+			}
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/go:1": { "version": "latest" }
+	}
+}
