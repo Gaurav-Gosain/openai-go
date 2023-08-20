@@ -1,27 +1,38 @@
 package OpenAI
 
-type OpenAIChatResponse struct {
-	ID      string `json:"id,omitempty"`
-	Object  string `json:"object,omitempty"`
-	Created int    `json:"created,omitempty"`
-	Choices []struct {
-		Index   int `json:"index,omitempty"`
-		Message struct {
-			Role    string `json:"role,omitempty"`
-			Content string `json:"content,omitempty"`
-		} `json:"message"`
-		FinishReason string `json:"finish_reason,omitempty"`
-	} `json:"choices,omitempty"`
-	Usage struct {
-		PromptTokens     int `json:"prompt_tokens,omitempty"`
-		CompletionTokens int `json:"completion_tokens,omitempty"`
-		TotalTokens      int `json:"total_tokens,omitempty"`
-	} `json:"usage,omitempty"`
+// Deprecated: use FunctionDefinition instead.
+type FunctionDefine = FunctionDefinition
 
-	Error Error `json:"error,omitempty"`
+type FinishReason string
+
+const (
+	FinishReasonStop          FinishReason = "stop"
+	FinishReasonLength        FinishReason = "length"
+	FinishReasonFunctionCall  FinishReason = "function_call"
+	FinishReasonContentFilter FinishReason = "content_filter"
+	FinishReasonNull          FinishReason = "null"
+)
+
+func (r FinishReason) MarshalJSON() ([]byte, error) {
+	if r == FinishReasonNull || r == "" {
+		return []byte("null"), nil
+	}
+	return []byte(`"` + string(r) + `"`), nil // best effort to not break future API changes
 }
 
-// Error is the standard error response from OpenAIs API
+type ChatCompletionChoice struct {
+	Index   int                   `json:"index"`
+	Message ChatCompletionMessage `json:"message"`
+	// FinishReason
+	// stop: API returned complete message,
+	// or a message terminated by one of the stop sequences provided via the stop parameter
+	// length: Incomplete model output due to max_tokens parameter or token limit
+	// function_call: The model decided to call a function
+	// content_filter: Omitted content due to a flag from our content filters
+	// null: API response still in progress or incomplete
+	FinishReason FinishReason `json:"finish_reason"`
+}
+
 type Error struct {
 	Message string      `json:"message,omitempty"`
 	Type    string      `json:"type,omitempty"`
@@ -29,7 +40,13 @@ type Error struct {
 	Code    interface{} `json:"code,omitempty"`
 }
 
-type Message struct {
-	Role    string `json:"role,omitempty"`
-	Content string `json:"content,omitempty"`
+// OpenAIChatResponse represents a response structure for chat completion API.
+type OpenAIChatResponse struct {
+	ID      string                 `json:"id"`
+	Object  string                 `json:"object"`
+	Created int64                  `json:"created"`
+	Model   string                 `json:"model"`
+	Choices []ChatCompletionChoice `json:"choices"`
+	Usage   Usage                  `json:"usage"`
+	Error   Error                  `json:"error,omitempty"`
 }

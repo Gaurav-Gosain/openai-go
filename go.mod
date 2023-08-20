@@ -2,7 +2,9 @@ module github.com/Gaurav-Gosain/openai-go
 
 go 1.18
 
+require github.com/pkoukk/tiktoken-go v0.1.5
+
 require (
-	github.com/dlclark/regexp2 v1.8.1 // indirect
-	github.com/pkoukk/tiktoken-go v0.1.1-0.20230418101013-cae809389480 // indirect
+	github.com/dlclark/regexp2 v1.10.0 // indirect
+	github.com/google/uuid v1.3.0 // indirect
 )
