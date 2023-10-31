@@ -8,12 +8,12 @@
 
 ### Supported Models
 
-|   Model Name    |
-| :-------------: |
-|      gpt-4      |
-|     gpt-4-*     |
-|  gpt-3.5-turbo  |
-| gpt-3.5-turbo-* |
+|    Model Name     |
+|  :-------------:  |
+|      `gpt-4`      |
+|     `gpt-4-*`     |
+|  `gpt-3.5-turbo`  |
+| `gpt-3.5-turbo-*` |
 
 
 ## Installation
